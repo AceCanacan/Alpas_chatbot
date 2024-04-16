@@ -1,3 +1,7 @@
-streamlit
+pandas
 openai
-llama_index
+streamlit
+python-dotenv
+llama-index
+IPython
+chromadb
