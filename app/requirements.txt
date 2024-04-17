@@ -5,3 +5,4 @@ python-dotenv
 llama-index
 IPython
 chromadb
+llama-index-vector-stores-postgres
