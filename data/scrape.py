@@ -35,25 +35,28 @@ with open(output_csv_path, mode='a', newline='', encoding='utf-8') as csvfile:
         writer.writerow(['URL', 'Content'])  # Column names
     
     for index, row in enumerate(urls[start_row:], start=start_row):
+        if not row or not row[0]:  # Skip empty rows or rows without a URL
+            print(f"Skipping empty or invalid row at index {index}")
+            save_progress(index + 1)
+            continue
+
         url = row[0]
         try:
             response = requests.get(url, timeout=10)
             soup = BeautifulSoup(response.text, 'html.parser')
             body_content = soup.body.get_text(separator=' ', strip=True) if soup.body else ''
             
-            # Exclude specified text and replace newlines and carriage returns
             exclude_text = "Date created:"
             if exclude_text in body_content:
                 body_content = body_content.split(exclude_text)[0]
             
             clean_content = body_content.replace('\n', ' ').replace('\r', ' ').strip().rstrip("'").rstrip('"')
             
-            # Writing URL and cleaned content to the output CSV
             writer.writerow([url, clean_content[:10000000]])  # Content limited to fit in cell
             
-            save_progress(index)
+            save_progress(index + 1)
         except requests.RequestException as e:
             print(f"Error downloading {url}: {e}")
-            save_progress(index)
+            save_progress(index + 1)
 
 print("Download completed.")
