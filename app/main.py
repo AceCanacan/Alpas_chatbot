@@ -35,22 +35,18 @@ query_engine = index.as_query_engine()
 
 import streamlit as st
 
-# Add the first colored line
-st.markdown('<hr style="border:5px solid #e74c3c;">', unsafe_allow_html=True)
+st.image('border.png')
 
 # Add the title with reduced margin
 st.markdown("""
-    <h1 style='text-align: center; color: black; margin-top: 0px; margin-bottom: 0px;'>Legal Querying System</h1>
+    <h1 style='text-align: center; margin-top: 0px; margin-bottom: 0px;'>Legal Querying System</h1>
     """, unsafe_allow_html=True)
-
-# Add the second colored line
-st.markdown('<hr style="border:5px solid #27ae60;">', unsafe_allow_html=True)
 
 st.markdown("""
-    <p style='text-align: center;'>Welcome to the Legal Querying System, an AI-driven chatbot focused on providing insights and answers related to the rights of indigenous peoples in the Philippines. Explore a range of topics from regulatory frameworks to court decisions, all tailored to support your legal needs concerning indigenous rights.</p>
+    <p style='text-align: center;'>👋 Welcome to the Legal Querying System, an AI-driven chatbot focused on providing 💡 insights and answers related to the 📚 rights of indigenous peoples in the Philippines. 🇵🇭</p>
     """, unsafe_allow_html=True)
 
-st.markdown('<hr style="border:1px solid #bdc3c7;">', unsafe_allow_html=True)
+st.markdown('<hr style="border:3px solid #3c9394;">', unsafe_allow_html=True)
 
 user_query = st.text_input("Enter your query here:", "", help="Type your question about indigenous people's rights in the Philippines and press enter. The chatbot will provide the information you need.")
 
@@ -73,4 +69,8 @@ if st.session_state.get('submitted', False):
     else:
         st.write("Please enter a query to get a response.")
 
-st.markdown('<hr style="border:1px solid #bdc3c7;">', unsafe_allow_html=True)
+st.image('border.png')
+
+st.markdown("""
+    <p style='font-size: small;text-align: center;'>This chatbot employs Retrieval-Augmented Generation to inform on legal topics, specifically indigenous rights in the Philippines—note, it's not for legal advice, does not collect personal data, and demonstrates AI's potential in legal information accessibility.</p>
+    """, unsafe_allow_html=True)
