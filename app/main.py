@@ -37,8 +37,8 @@ import streamlit as st
 st.image('border.png')
 
 st.markdown("""
-    <h1 style='text-align: center';>Legal Querying System</h1>
-    <p style='text-align: center;'>👋 Welcome to the Legal Querying System, an AI-driven chatbot focused on providing 💡 insights and answers related to the 📚 rights of indigenous peoples in the Philippines. 🇵🇭</p>
+    <h1 style='text-align: center';>⛰️ Alpas ⛰️</h1>
+    <p style='text-align: center;'>👋 Welcome to the Alpas, an AI-driven chatbot focused on providing 💡 insights and answers related to the 📚 rights of indigenous peoples in the Philippines. 🇵🇭</p>
     <p style='text-align: center;'><strong>Sample questions you can ask:</strong></p>
     <ul style='list-style: none; padding: 0; text-align: center; margin: 10px 0;'>
         <li style='font-size: 12px;'>What steps must an indigenous community take to process their CADT?</li>
@@ -48,33 +48,42 @@ st.markdown("""
     <hr style="border:1px solid #3c9394; margin: 10px 0;">
     """, unsafe_allow_html=True)
 
+# Define the user query input field with session state management
 user_query = st.text_input("Enter your query here:", "", help="Type your question about indigenous people's rights in the Philippines and press enter. The chatbot will provide the information you need.")
+if user_query:
+    st.session_state.user_query = user_query  # Store the query in session state
 
-submit_button = st.button("Submit")
-
-
-if submit_button:
-    # Update the session state to indicate the query has been submitted
-    st.session_state.submitted = True
-
-# Once the query has been submitted
-if st.session_state.get('submitted', False):
-    # Reset the 'submitted' state for next input
-    st.session_state.submitted = False
-    
-    if user_query:  # making sure the input is not empty
-        response_object = query_engine.query(user_query)
-        
-        response_text = response_object.response
-        st.write(response_text)
+# Define the submit button
+if st.button('Submit'):
+    if 'user_query' in st.session_state and st.session_state.user_query:
+        st.session_state.submitted = True
     else:
-        st.write("Please enter a query to get a response.")
+        st.error('Please enter a query to get a response.')
 
 st.markdown("""
-   <hr style="border:1px solid #3c9394; margin: 10px 0;">
-    """, unsafe_allow_html=True)
+<style>
+.response-box {
+    border: 1px solid #e0e0e0; /* Light grey border */
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;  /* Slightly rounded corners */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Subtle shadow */
+    font-weight: 600; /* Make the font bold */
+}
+</style>
+""", unsafe_allow_html=True)
+
+# Check if the query has been submitted
+if st.session_state.get('submitted', False):
+    # Display a progress bar during processing
+    with st.spinner('Processing...'):
+        response_object = query_engine.query(st.session_state.user_query)
+        response_text = response_object.response
+        st.session_state.submitted = False  # Reset the 'submitted' state for next input
+        st.markdown(f'<div class="response-box">{response_text}</div>', unsafe_allow_html=True)
 
 st.markdown("""
+    <hr style="border:1px solid #3c9394; margin: 10px 0;">
     <p style='font-size: small;text-align: center;margin-bottom: 50px;'>This chatbot employs Retrieval-Augmented Generation to inform on legal topics, specifically indigenous rights in the Philippines—note, it's not for legal advice, does not collect personal data, and demonstrates AI's potential in legal information accessibility.</p>
     """, unsafe_allow_html=True)
 
