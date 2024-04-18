@@ -4,6 +4,8 @@
 
 **Alpas** is a specialized application designed to facilitate access to a large dataset of legal information concerning the rights of indigenous peoples in the Philippines. It leverages AI technologies like OpenAI's embeddings and llama_index for efficient querying and data retrieval, strictly providing information without offering legal advice. This focus ensures that users can explore and retrieve legal content relevant to indigenous rights, aiding in informed discussions and personal understanding.
 
+<img width="1350" alt="Screenshot 2024-04-18 at 12 43 32 PM" src="https://github.com/AceCanacan/Alpas_chatbot/assets/110709199/c943f53a-4375-4d41-a9fb-3b52d8d84cef">
+
 ## ⚙️ Detailed Workflow of Alpas Application
 
 ### Overview
@@ -43,6 +45,7 @@ Alpas is engineered to provide a streamlined and informative user experience, fo
   - **Document Retrieval**: When a query is received, llama_index’s vector store index assesses the semantic similarity between the query and stored document embeddings to retrieve the most relevant documents.
   - **Response Synthesis**: A retrieval-augmented generation approach is employed, where the system synthesizes information from both the retrieved documents and pre-encoded AI knowledge to generate detailed and contextually relevant responses.
   - **Infrastructure Utilization**: This process leverages AWS's scalable resources, ensuring efficient handling of concurrent user queries.
+<img width="1050" alt="Screenshot 2024-04-18 at 12 41 29 PM" src="https://github.com/AceCanacan/Alpas_chatbot/assets/110709199/8fba51b8-55b0-49ed-bc60-abdbc90abc5d">
 
 ## 🛠 Detailed Explanation of System Architecture and Technologies for Alpas
 
