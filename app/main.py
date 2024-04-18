@@ -38,7 +38,7 @@ query_engine = index.as_query_engine()
 
 import streamlit as st
 
-st.image('border.png')
+st.image('app/border.png')
 
 st.markdown("""
     <h1 style='text-align: center';>⛰️ Alpas ⛰️</h1>
@@ -91,4 +91,4 @@ st.markdown("""
     <p style='font-size: small;text-align: center;margin-bottom: 50px;'>This chatbot employs Retrieval-Augmented Generation to inform on legal topics, specifically indigenous rights in the Philippines—note, it's not for legal advice, does not collect personal data, and demonstrates AI's potential in legal information accessibility.</p>
     """, unsafe_allow_html=True)
 
-st.image('border.png')
+st.image('app/border.png')
