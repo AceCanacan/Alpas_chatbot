@@ -58,6 +58,7 @@ st.markdown("""
         <li style='font-size: 12px;'>How are indigenous rights to intellectual property protected under IPRA?</li>
         <li style='font-size: 12px;'>What are the qualifications for a community to be considered as indigenous?</li>
     </ul>
+    <hr style="border:1px solid #3c9394; margin: 10px 0;">
     <p style='font-size: small;text-align: center;'>This chatbot employs Retrieval-Augmented Generation to inform on legal topics, specifically indigenous rights in the Philippines—note, it's not for legal advice, does not collect personal data, and demonstrates AI's potential in legal information accessibility.</p>
     <hr style="border:1px solid #3c9394; margin: 10px 0;">
     """, unsafe_allow_html=True)
