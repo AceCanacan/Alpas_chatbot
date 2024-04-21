@@ -34,12 +34,6 @@ index = VectorStoreIndex.from_vector_store(
     embed_model=embed_model,
 )
 
-
-if "messages" not in st.session_state.keys():
-    st.session_state.messages = [
-        {"role": "assistant", "content": "Please begin by sharing your question or concern about Indigenous peoples' rights."}
-    ]
-
 # Create a vector store from the Chroma collection
 vector_store = ChromaVectorStore(chroma_collection=chroma_collection)
 
@@ -65,11 +59,18 @@ st.markdown("""
         <li style='font-size: 12px;'>What are the qualifications for a community to be considered as indigenous?</li>
     </ul>
     <hr style="border:1px solid #3c9394; margin: 10px 0;">
+    <p style='font-size: small;text-align: center;margin-bottom: 50px;'>This chatbot employs Retrieval-Augmented Generation to inform on legal topics, specifically indigenous rights in the Philippines—note, it's not for legal advice, does not collect personal data, and demonstrates AI's potential in legal information accessibility.</p>
+    <hr style="border:1px solid #3c9394; margin: 10px 0;">
     """, unsafe_allow_html=True)
-
 # -------------------------------------------- #
 
 chat_engine = index.as_chat_engine(chat_mode="openai", verbose=True)
+
+
+if "messages" not in st.session_state.keys():
+    st.session_state.messages = [
+        {"role": "assistant", "content": "Please begin by sharing your question or concern about Indigenous peoples' rights."}
+    ]
 
 if prompt := st.chat_input("Your question"): # Prompt for user input and save to chat history
     st.session_state.messages.append({"role": "user", "content": prompt})
@@ -89,9 +90,4 @@ if st.session_state.messages[-1]["role"] != "assistant":
 
 # -------------------------------------------- #
 
-st.markdown("""
-    <hr style="border:1px solid #3c9394; margin: 10px 0;">
-    <p style='font-size: small;text-align: center;margin-bottom: 50px;'>This chatbot employs Retrieval-Augmented Generation to inform on legal topics, specifically indigenous rights in the Philippines—note, it's not for legal advice, does not collect personal data, and demonstrates AI's potential in legal information accessibility.</p>
-    """, unsafe_allow_html=True)
-
-# st.image('app/border.png')
+st.image('app/border.png')
