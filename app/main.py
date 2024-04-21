@@ -37,7 +37,7 @@ index = VectorStoreIndex.from_vector_store(
 
 if "messages" not in st.session_state.keys():
     st.session_state.messages = [
-        {"role": "assistant", "content": "Ask me a question about Streamlit's open-source Python library!"}
+        {"role": "assistant", "content": "Please begin by sharing your question or concern about Indigenous peoples' rights."}
     ]
 
 # Create a vector store from the Chroma collection
