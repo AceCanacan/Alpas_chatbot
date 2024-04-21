@@ -89,5 +89,3 @@ if st.session_state.messages[-1]["role"] != "assistant":
 
 
 # -------------------------------------------- #
-
-st.image('app/border.png')
