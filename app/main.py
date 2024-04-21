@@ -34,7 +34,22 @@ index = VectorStoreIndex.from_vector_store(
     embed_model=embed_model,
 )
 
-query_engine = index.as_query_engine()
+
+if "messages" not in st.session_state.keys():
+    st.session_state.messages = [
+        {"role": "assistant", "content": "Ask me a question about Streamlit's open-source Python library!"}
+    ]
+
+# Create a vector store from the Chroma collection
+vector_store = ChromaVectorStore(chroma_collection=chroma_collection)
+
+# Create the LlamaIndex from the vector store
+index = VectorStoreIndex.from_vector_store(
+    vector_store,
+    embed_model=embed_model,
+)
+
+# -------------------------------------------- #
 
 import streamlit as st
 
@@ -52,43 +67,31 @@ st.markdown("""
     <hr style="border:1px solid #3c9394; margin: 10px 0;">
     """, unsafe_allow_html=True)
 
-# Define the user query input field with session state management
-user_query = st.text_input("Enter your query here:", "", help="Type your question about indigenous people's rights in the Philippines and press enter. The chatbot will provide the information you need.")
-if user_query:
-    st.session_state.user_query = user_query  # Store the query in session state
+# -------------------------------------------- #
 
-# Define the submit button
-if st.button('Submit'):
-    if 'user_query' in st.session_state and st.session_state.user_query:
-        st.session_state.submitted = True
-    else:
-        st.error('Please enter a query to get a response.')
+chat_engine = index.as_chat_engine(chat_mode="openai", verbose=True)
 
-st.markdown("""
-<style>
-.response-box {
-    border: 1px solid #e0e0e0; /* Light grey border */
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 5px;  /* Slightly rounded corners */
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Subtle shadow */
-    font-weight: 600; /* Make the font bold */
-}
-</style>
-""", unsafe_allow_html=True)
+if prompt := st.chat_input("Your question"): # Prompt for user input and save to chat history
+    st.session_state.messages.append({"role": "user", "content": prompt})
 
-# Check if the query has been submitted
-if st.session_state.get('submitted', False):
-    # Display a progress bar during processing
-    with st.spinner('Processing...'):
-        response_object = query_engine.query(st.session_state.user_query)
-        response_text = response_object.response
-        st.session_state.submitted = False  # Reset the 'submitted' state for next input
-        st.markdown(f'<div class="response-box">{response_text}</div>', unsafe_allow_html=True)
+for message in st.session_state.messages: # Display the prior chat messages
+    with st.chat_message(message["role"]):
+        st.write(message["content"])
+
+if st.session_state.messages[-1]["role"] != "assistant":
+    with st.chat_message("assistant"):
+        with st.spinner("Thinking..."):
+            response = chat_engine.chat(prompt)
+            st.write(response.response)
+            message = {"role": "assistant", "content": response.response}
+            st.session_state.messages.append(message) # Add response to message history
+
+
+# -------------------------------------------- #
 
 st.markdown("""
     <hr style="border:1px solid #3c9394; margin: 10px 0;">
     <p style='font-size: small;text-align: center;margin-bottom: 50px;'>This chatbot employs Retrieval-Augmented Generation to inform on legal topics, specifically indigenous rights in the Philippines—note, it's not for legal advice, does not collect personal data, and demonstrates AI's potential in legal information accessibility.</p>
     """, unsafe_allow_html=True)
 
-st.image('app/border.png')
+# st.image('app/border.png')
