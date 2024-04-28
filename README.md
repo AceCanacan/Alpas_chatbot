@@ -4,6 +4,8 @@
 
 **Alpas** is a specialized application designed to facilitate access to a large dataset of legal information concerning the rights of indigenous peoples in the Philippines. It leverages AI technologies like OpenAI's embeddings and llama_index for efficient querying and data retrieval, strictly providing information without offering legal advice. This focus ensures that users can explore and retrieve legal content relevant to indigenous rights, aiding in informed discussions and personal understanding.
 
+[Access the app via this link](https://bureauchat-ai.streamlit.app/)
+
 <img width="1350" alt="Screenshot 2024-04-18 at 12 43 32 PM" src="https://github.com/AceCanacan/Alpas_chatbot/assets/110709199/c943f53a-4375-4d41-a9fb-3b52d8d84cef">
 
 ## ⚙️ Detailed Workflow of Alpas Application
